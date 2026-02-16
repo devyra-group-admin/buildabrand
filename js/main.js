@@ -6,7 +6,39 @@ document.addEventListener("DOMContentLoaded", function () {
   initSmoothScroll();
   initNavbarScroll();
   initFormSubmission();
+  initMobileMenu();
 });
+
+/**
+ * Mobile menu toggle
+ */
+function initMobileMenu() {
+  const menuBtn = document.querySelector(".mobile-menu-btn");
+  const mobileNav = document.querySelector(".mobile-nav");
+
+  if (menuBtn && mobileNav) {
+    menuBtn.addEventListener("click", function () {
+      menuBtn.classList.toggle("active");
+      mobileNav.classList.toggle("active");
+    });
+
+    // Close menu when clicking a link
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", function () {
+        menuBtn.classList.remove("active");
+        mobileNav.classList.remove("active");
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!menuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+        menuBtn.classList.remove("active");
+        mobileNav.classList.remove("active");
+      }
+    });
+  }
+}
 
 /**
  * Smooth scroll for anchor links
